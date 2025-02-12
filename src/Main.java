@@ -27,8 +27,8 @@ public class Main {
         car1.setMarca("BMW");
         car1.setModelo("M3");
         car1.setMatricula("AX-34-9P");
-        car1.setAlugado(true);
-        c1.setCarro(car1);
+        car1.setAlugado(false);
+
 
         car2.setMarca("Lamborghini");
         car2.setModelo("SVJ");
@@ -153,6 +153,15 @@ public class Main {
         return false;
     }
 
+    private static boolean vereficarN(int nif){
+        for(Cliente temp:clientes){
+            if(nif == temp.getNif()){
+                return true;
+            }
+        }
+        return false;
+    }//apenas pra poupar tempo
+
     public static void main(String[] args) {
         int sair = 1;
 
@@ -194,19 +203,27 @@ public class Main {
                 case 6:
                     Scanner nif =new Scanner(System.in);
                     Scanner matricula =new Scanner(System.in);
-
+                    int x = 1;
+                    Boolean teste=null;
                     System.out.println("Insere o nif-");
                     int nifInserido = nif.nextInt();
-                    System.out.println("Insere a matricula- ");
-                    String matriculaInserida = matricula.nextLine();
+                    if(vereficarN(nifInserido)){
+                        System.out.println("Insere a matricula- ");
+                        String matriculaInserida = matricula.nextLine();
 
-                    if(registarAluguer(nifInserido,matriculaInserida)){
-                        System.out.println("Aluguer registado com sucesso!");
+                        if(registarAluguer(nifInserido,matriculaInserida)){
+                            System.out.println("Aluguer registado com sucesso!");
+                        }
+                        else{
+                            System.out.println("Não foi possivel alugar");
+                        }
+                        break;
                     }
-                    else{
-                        System.out.println("Não foi possivel alugar");
+                    else {
+                        System.out.println("NIF nao encontrado, voltando ao menu...");
+                        break;
                     }
-                    break;
+
                 case 7:
                     Scanner nCliente =new Scanner(System.in);
                     for(Cliente verClientes:clientes){
